@@ -1,0 +1,93 @@
+./sync.out 30 50000
+Testing FIFO with 30 writers each sending 50000 unsigned longs.
+Received first datum from proc #0 after 1 calls to fifo_rd().
+Received first datum from proc #1 after 243 calls to fifo_rd().
+Received first datum from proc #29 after 4097 calls to fifo_rd().
+Received first datum from proc #9 after 4098 calls to fifo_rd().
+Received first datum from proc #11 after 4166 calls to fifo_rd().
+Received first datum from proc #13 after 4202 calls to fifo_rd().
+Received first datum from proc #7 after 6996 calls to fifo_rd().
+Received first datum from proc #21 after 7446 calls to fifo_rd().
+Received first datum from proc #23 after 7557 calls to fifo_rd().
+Received first datum from proc #25 after 8194 calls to fifo_rd().
+Received first datum from proc #17 after 10628 calls to fifo_rd().
+Received first datum from proc #19 after 10629 calls to fifo_rd().
+Received first datum from proc #2 after 10631 calls to fifo_rd().
+Received first datum from proc #3 after 10633 calls to fifo_rd().
+Received first datum from proc #18 after 10634 calls to fifo_rd().
+Received first datum from proc #15 after 12755 calls to fifo_rd().
+Received first datum from proc #6 after 13302 calls to fifo_rd().
+Received first datum from proc #4 after 14156 calls to fifo_rd().
+Received first datum from proc #5 after 18223 calls to fifo_rd().
+Received first datum from proc #26 after 18340 calls to fifo_rd().
+Received first datum from proc #27 after 26283 calls to fifo_rd().
+Received first datum from proc #14 after 27270 calls to fifo_rd().
+Received first datum from proc #28 after 27276 calls to fifo_rd().
+Received first datum from proc #10 after 27282 calls to fifo_rd().
+Received first datum from proc #20 after 27284 calls to fifo_rd().
+Received first datum from proc #16 after 63790 calls to fifo_rd().
+Received first datum from proc #12 after 63799 calls to fifo_rd().
+Received first datum from proc #22 after 71796 calls to fifo_rd().
+Received first datum from proc #24 after 276621 calls to fifo_rd().
+All data from proc #4 received after 355575 calls to fifo_rd().
+Still waiting on 29 proccesses.
+All data from proc #1 received after 357881 calls to fifo_rd().
+Still waiting on 28 proccesses.
+All data from proc #0 received after 374126 calls to fifo_rd().
+Still waiting on 27 proccesses.
+All data from proc #3 received after 381635 calls to fifo_rd().
+Still waiting on 26 proccesses.
+Received first datum from proc #8 after 410229 calls to fifo_rd().
+All data from proc #2 received after 413091 calls to fifo_rd().
+Still waiting on 25 proccesses.
+All data from proc #5 received after 448981 calls to fifo_rd().
+Still waiting on 24 proccesses.
+All data from proc #6 received after 635429 calls to fifo_rd().
+Still waiting on 23 proccesses.
+All data from proc #7 received after 710980 calls to fifo_rd().
+Still waiting on 22 proccesses.
+All data from proc #9 received after 739722 calls to fifo_rd().
+Still waiting on 21 proccesses.
+All data from proc #8 received after 768028 calls to fifo_rd().
+Still waiting on 20 proccesses.
+All data from proc #10 received after 861011 calls to fifo_rd().
+Still waiting on 19 proccesses.
+All data from proc #11 received after 942516 calls to fifo_rd().
+Still waiting on 18 proccesses.
+All data from proc #12 received after 1004813 calls to fifo_rd().
+Still waiting on 17 proccesses.
+All data from proc #15 received after 1024834 calls to fifo_rd().
+Still waiting on 16 proccesses.
+All data from proc #14 received after 1049370 calls to fifo_rd().
+Still waiting on 15 proccesses.
+All data from proc #13 received after 1073537 calls to fifo_rd().
+Still waiting on 14 proccesses.
+All data from proc #17 received after 1089266 calls to fifo_rd().
+Still waiting on 13 proccesses.
+All data from proc #16 received after 1091306 calls to fifo_rd().
+Still waiting on 12 proccesses.
+All data from proc #19 received after 1179158 calls to fifo_rd().
+Still waiting on 11 proccesses.
+All data from proc #23 received after 1187662 calls to fifo_rd().
+Still waiting on 10 proccesses.
+All data from proc #21 received after 1196429 calls to fifo_rd().
+Still waiting on 9 proccesses.
+All data from proc #18 received after 1215234 calls to fifo_rd().
+Still waiting on 8 proccesses.
+All data from proc #22 received after 1247442 calls to fifo_rd().
+Still waiting on 7 proccesses.
+All data from proc #24 received after 1294082 calls to fifo_rd().
+Still waiting on 6 proccesses.
+All data from proc #20 received after 1295474 calls to fifo_rd().
+Still waiting on 5 proccesses.
+All data from proc #25 received after 1384574 calls to fifo_rd().
+Still waiting on 4 proccesses.
+All data from proc #26 received after 1475039 calls to fifo_rd().
+Still waiting on 3 proccesses.
+All data from proc #28 received after 1483758 calls to fifo_rd().
+Still waiting on 2 proccesses.
+All data from proc #29 received after 1490186 calls to fifo_rd().
+Still waiting on 1 proccesses.
+All data from proc #27 received after 1500000 calls to fifo_rd().
+Still waiting on 0 proccesses.
+Received all data in order!

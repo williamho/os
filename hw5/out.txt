@@ -1,0 +1,55 @@
+Part A:
+Creating 16-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with read-only access and flag MAP_SHARED.
+Attempting to write to mapped area.
+Result: Signal 11 (Segmentation fault) was generated.
+
+Part B:
+Creating 16-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with read/write access and flag MAP_SHARED.
+Original contents of file:
+<01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <EOF>
+Writing value 0x3D to byte 0 of memory-mapped region.
+Contents of file after writing to mapped memory:
+<3D> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <EOF>
+Yes, with MAP_SHARED, the update is immediately visible when accessing the file through the read system call.
+
+Part C:
+Creating 16-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with read/write access and flag MAP_PRIVATE.
+Original contents of file:
+<01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <EOF>
+Writing value 0x3D to byte 0 of memory-mapped region.
+Contents of file after writing to mapped memory:
+<01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <EOF>
+No, with MAP_PRIVATE, the update is not immediately visible when accessing the file through the read system call.
+
+Part E: (And D)
+Creating 8193-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with read/write access and flag MAP_SHARED.
+Original size of file according to stat: 8193
+Writing 4 bytes (with value 0x02) to the mmap region at offset 8193.
+New size of file according to stat: 8193
+File dump starting at offset 8193 (read(2) requested 4 bytes and returned 0):
+<EOF>
+Memory dump starting at offset 8193 for 4 bytes:
+<02> <02> <02> <02> 
+For part D: The size of the file does not change.
+Seeking to 8 bytes past end of file and writing 4 bytes (with value 0x3D).
+Memory dump starting at offset 8193 for 16 bytes:
+<02> <02> <02> <02> <00> <00> <00> <00> <3D> <3D> <3D> <3D> <00> <00> <00> <00> File dump starting at offset 8193 (read(2) requested 16 bytes and returned 12):
+<02> <02> <02> <02> <00> <00> <00> <00> <3D> <3D> <3D> <3D> <EOF>
+For part E: Yes, the data previously written to the hole are visible in the file.
+
+Part F:
+Creating 16-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with write-only access and flag MAP_SHARED.
+Attempting to write to memory beyond the current end of file (and crossing a page boundary).
+Result: Signal 7 (Bus error) was generated.
+
+Part G:
+Creating 5000-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with write-only access and flag MAP_SHARED.
+Truncating file to size 1 byte.
+Attempting to write to offset 2500 of memory-mapped region.
+Result: Signal 7 (Bus error) was generated.

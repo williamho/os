@@ -1,0 +1,6 @@
+#!./a.out
+ls -l >list_of_files.txt
+cat list_of_files.txt
+ls -l dir_that_doesnt_exist 2>errors.txt
+cat errors.txt
+echo moo

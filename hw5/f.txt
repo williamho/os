@@ -1,0 +1,5 @@
+Part F:
+Creating 16-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with write-only access and flag MAP_SHARED.
+Attempting to write to memory beyond the current end of file (and crossing a page boundary).
+Result: Signal 7 (Bus error) was generated.

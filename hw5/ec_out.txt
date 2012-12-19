@@ -1,0 +1,3 @@
+First faulting address occurred at 0x1cbf000.
+Second faulting address occurred at 0x1cc0000.
+Page size determined experimentally to be 4096 bytes.

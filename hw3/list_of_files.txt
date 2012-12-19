@@ -1,0 +1,5 @@
+total 28
+-rwxr-xr-x 1 ho8 students 13495 2012-02-21 13:44 a.out
+-rw-r--r-- 1 ho8 students     0 2012-02-21 13:46 list_of_files.txt
+-rw-r--r-- 1 ho8 students  4969 2012-02-18 21:51 wish.c
+-rwxr--r-- 1 ho8 students   122 2012-02-20 21:54 wish_script

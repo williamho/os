@@ -1,0 +1,122 @@
+// Switching the order of mutex_trylock and sem_wait in fifo_wr()
+void fifo_wr(struct fifo *f, unsigned long d) {
+	while(1) {
+		if (mutex_trylock(&f->wr_lock)) {
+			sem_wait(&f->wr_sem);
+		
+			f->arr[f->wr_pos] = d;
+			f->wr_pos = (f->wr_pos + 1)%MYFIFO_BUFSIZ;
+			mutex_unlock(&f->wr_lock);
+			sem_inc(&f->rd_sem);
+			return;
+		}
+	}
+}
+
+./sync.out 10 10000
+Testing FIFO with 10 writers each sending 10000 unsigned longs.
+Received first datum from proc #0 after 1 calls to fifo_rd().
+Received first datum from proc #1 after 176 calls to fifo_rd().
+Received first datum from proc #7 after 4098 calls to fifo_rd().
+Received first datum from proc #5 after 5229 calls to fifo_rd().
+Received first datum from proc #8 after 6987 calls to fifo_rd().
+Received first datum from proc #2 after 6989 calls to fifo_rd().
+Received first datum from proc #6 after 8196 calls to fifo_rd().
+Received first datum from proc #4 after 9855 calls to fifo_rd().
+Received first datum from proc #3 after 16497 calls to fifo_rd().
+Received first datum from proc #9 after 49064 calls to fifo_rd().
+All data from proc #3 received after 50453 calls to fifo_rd().
+Still waiting on 9 proccesses.
+All data from proc #0 received after 60992 calls to fifo_rd().
+Still waiting on 8 proccesses.
+All data from proc #4 received after 71489 calls to fifo_rd().
+Still waiting on 7 proccesses.
+All data from proc #2 received after 75605 calls to fifo_rd().
+Still waiting on 6 proccesses.
+All data from proc #8 received after 76765 calls to fifo_rd().
+Still waiting on 5 proccesses.
+All data from proc #1 received after 78787 calls to fifo_rd().
+Still waiting on 4 proccesses.
+
+(After this point, the program hangs)
+
+---------
+
+// Using mutex_lock instead of mutex_trylock in fifo_wr()
+void fifo_wr(struct fifo *f, unsigned long d) {
+	mutex_lock(&f->wr_lock);
+	sem_wait(&f->wr_sem);
+	
+	f->arr[f->wr_pos] = d;
+	f->wr_pos = (f->wr_pos + 1)%MYFIFO_BUFSIZ;
+	mutex_unlock(&f->wr_lock);
+	sem_inc(&f->rd_sem);
+}
+
+./sync.out 10 10000
+Testing FIFO with 10 writers each sending 10000 unsigned longs.
+Received first datum from proc #0 after 1 calls to fifo_rd().
+Received first datum from proc #1 after 191 calls to fifo_rd().
+Received first datum from proc #5 after 4098 calls to fifo_rd().
+Received first datum from proc #8 after 4099 calls to fifo_rd().
+Received first datum from proc #7 after 8194 calls to fifo_rd().
+Received first datum from proc #9 after 10882 calls to fifo_rd().
+Received first datum from proc #6 after 11530 calls to fifo_rd().
+Received first datum from proc #2 after 12175 calls to fifo_rd().
+Received first datum from proc #3 after 24578 calls to fifo_rd().
+All data from proc #3 received after 39322 calls to fifo_rd().
+Still waiting on 9 proccesses.
+Received first datum from proc #4 after 43263 calls to fifo_rd().
+All data from proc #4 received after 63168 calls to fifo_rd().
+Still waiting on 8 proccesses.
+
+(The program hangs after this point: it is in a deadlock state)
+
+---------
+// Not locking the fifo's wr_lock before changing f->wr_pos in fifo_wr()
+void fifo_wr(struct fifo *f, unsigned long d) {
+	sem_wait(&f->wr_sem);
+	
+	f->arr[f->wr_pos] = d;
+	f->wr_pos = (f->wr_pos + 1)%MYFIFO_BUFSIZ;
+	sem_inc(&f->rd_sem);
+}
+
+./sync.out 10 10000
+Testing FIFO with 10 writers each sending 10000 unsigned longs.
+Received first datum from proc #0 after 1 calls to fifo_rd().
+Received first datum from proc #1 after 297 calls to fifo_rd().
+Error (read #511): Reader received seq 0 from proc #0 (expected 404).
+
+---------
+
+// Incrementing wr_sem in fifo_rd() before data is read
+unsigned long fifo_rd(struct fifo *f) {
+	unsigned long retval;
+	while(1) {
+		sem_wait(&f->rd_sem);
+		
+		if (mutex_trylock(&f->rd_lock)) {
+			sem_inc(&f->wr_sem);
+			retval = f->arr[f->rd_pos];
+			f->rd_pos = (f->rd_pos + 1)%MYFIFO_BUFSIZ;
+			mutex_unlock(&f->rd_lock);
+			return retval;
+		}
+		else
+			sem_inc(&f->rd_sem);
+	}
+}
+
+Testing FIFO with 10 writers each sending 50000 unsigned longs.
+Received first datum from proc #0 after 1 calls to fifo_rd().
+Received first datum from proc #3 after 4097 calls to fifo_rd().
+Received first datum from proc #1 after 4389 calls to fifo_rd().
+Received first datum from proc #8 after 14026 calls to fifo_rd().
+Received first datum from proc #7 after 14027 calls to fifo_rd().
+Received first datum from proc #2 after 20224 calls to fifo_rd().
+Received first datum from proc #9 after 20386 calls to fifo_rd().
+Received first datum from proc #5 after 24482 calls to fifo_rd().
+Received first datum from proc #4 after 28578 calls to fifo_rd().
+Received first datum from proc #6 after 35513 calls to fifo_rd().
+Error (read #305221): Reader received seq 30470 from proc #5 (expected 28580).

@@ -1,0 +1,9 @@
+Part B:
+Creating 16-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with read/write access and flag MAP_SHARED.
+Original contents of file:
+<01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <EOF>
+Writing value 0x3D to byte 0 of memory-mapped region.
+Contents of file after writing to mapped memory:
+<3D> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <01> <EOF>
+Yes, with MAP_SHARED, the update is immediately visible when accessing the file through the read system call.

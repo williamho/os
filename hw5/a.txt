@@ -1,0 +1,5 @@
+Part A:
+Creating 16-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with read-only access and flag MAP_SHARED.
+Attempting to write to mapped area.
+Result: Signal 11 (Segmentation fault) was generated.

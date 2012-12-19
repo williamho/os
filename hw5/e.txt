@@ -1,0 +1,16 @@
+Part E:
+Creating 8193-byte file "testfile.txt" where each byte has the value 0x01.
+Memory-mapping file with read/write access and flag MAP_SHARED.
+Original size of file according to stat: 8193
+Writing 4 bytes (with value 0x02) to the mmap region at offset 8193.
+New size of file according to stat: 8193
+File dump starting at offset 8193 (read(2) requested 4 bytes and returned 0):
+<EOF>
+Memory dump starting at offset 8193 for 4 bytes:
+<02> <02> <02> <02> 
+For part D: The size of the file does not change.
+Seeking to 8 bytes past end of file and writing 4 bytes (with value 0x3D).
+Memory dump starting at offset 8193 for 16 bytes:
+<02> <02> <02> <02> <00> <00> <00> <00> <3D> <3D> <3D> <3D> <00> <00> <00> <00> File dump starting at offset 8193 (read(2) requested 16 bytes and returned 12):
+<02> <02> <02> <02> <00> <00> <00> <00> <3D> <3D> <3D> <3D> <EOF>
+For part E: Yes, the data previously written to the hole are visible in the file.
